@@ -1,0 +1,12 @@
+<h2>Games</h2>
+<% @games.each do |f| %>
+  <div class="game">
+    <strong><%=f.name %></br></strong>
+    Time: <%=f.time %></br>
+    Miniumum Players: <%=f.min_players %></br>
+    Maximum Players: <%=f.max_players %></br>
+    Complexity: <%=f.complexity %></br>
+    Rating: <%=f.rating %></br>
+  </div>
+  
+<% end %>
