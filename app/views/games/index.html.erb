@@ -1,4 +1,10 @@
 <h2>Games</h2>
+<%= form_tag({controller: "games", action: "filter"}, method: "post") do %>
+  Time: <%= text_field_tag("time") %></br>
+  Players: <%= select_tag(:players, options_for_select(1..15), include_blank: true ) %></br>
+  Complexity: <%= select_tag(:complexity, options_for_select(1..5), include_blank: true ) %></br>
+  <%= submit_tag "Search" %>
+<% end %>
 <% @games.each do |f| %>
   <div class="game">
     <strong><%=f.name %></br></strong>
@@ -8,5 +14,5 @@
     Complexity: <%=f.complexity %></br>
     Rating: <%=f.rating %></br>
   </div>
-  
+
 <% end %>
