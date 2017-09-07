@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+  belongs_to :collection
   def self.enough_players(players)
     unless players.blank?
       players = players.to_i
