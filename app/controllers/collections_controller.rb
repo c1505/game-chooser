@@ -3,6 +3,10 @@ class CollectionsController < ApplicationController
     @games = Collection.find(params[:id]).games
   end
 
+  def index
+    @collections = Collection.all
+  end
+
   def filter
     @collection = Collection.find(params[:id])
     complexity = params[:complexity]
