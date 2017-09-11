@@ -3,9 +3,9 @@ class Search
   def initialize(query)
     @query = query
     @api_key = Rails.application.secrets.google_api_key
-    @url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAXUV1gIBK-iNnqvlq67bYkweUcV_aiGD4&cx=#{@api_key}:dhkps_7te2y&q=#{@query}"
+    @url = "https://www.googleapis.com/customsearch/v1?key=#{@api_key}&cx=006396486437962354856:dhkps_7te2y&q=#{@query}"
   end
-
+  
   def link
     fetch.parsed_response["items"].first["link"]
   end
