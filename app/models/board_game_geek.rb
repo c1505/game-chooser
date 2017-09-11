@@ -5,8 +5,12 @@ class BoardGameGeek
   end
 
   def transform
+    binding.pry
     response = fetch
-    name = response["name"]["__content__"]
+    name = response["name"] #FIXME error in how pandemic responds.  multiple names
+    name.select {|f| f["primary"] == "true"}[0]["__content__"]
+    # problem is that for just one it is a hash rather than an array
+    # itempotent way to turn into an array?
     min_players = response["minplayers"]
     max_players = response["maxplayers"]
     time = response["playingtime"]
