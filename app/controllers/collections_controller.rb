@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   def show
-    @games = Collection.find(params[:id]).games
+    @collection = Collection.find(params[:id])
+    @games = @collection.games
   end
 
   def index

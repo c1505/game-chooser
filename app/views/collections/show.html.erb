@@ -3,8 +3,9 @@
   Players: <%= select_tag(:players, options_for_select(1..15), include_blank: true ) %></br>
   Complexity: <%= select_tag(:complexity, options_for_select(1..5), include_blank: true ) %></br>
   Show me: <%= select_tag(:quantity, options_for_select(1..5), include_blank: true ) %> game(s)</br>
-  <%= submit_tag "Search" %>
+  <%= submit_tag "Search" %></br>
 <% end %>
+<%= link_to "Add Game", new_collection_game_path(@collection.id) %>
 <% @games.each do |f| %>
   <div class="game">
     <strong><%=f.name %></br></strong>
