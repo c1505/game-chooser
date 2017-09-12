@@ -1,5 +1,7 @@
 class Game < ApplicationRecord
   belongs_to :collection
+  acts_as_taggable
+  acts_as_taggable_on :tags
   def self.enough_players(players)
     unless players.blank?
       players = players.to_i
