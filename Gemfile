@@ -46,6 +46,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'pry'
   gem 'rspec-rails', '~> 3.6'
+  gem 'capybara', '~> 2.7', '>= 2.7.1'
   gem 'dotenv-rails', groups: [:development, :test]
 end
 
