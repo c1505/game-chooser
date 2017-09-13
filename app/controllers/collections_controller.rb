@@ -2,6 +2,7 @@ class CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
     @games = @collection.games
+    @tags = ActsAsTaggableOn::Tag.for_context("categories").map {|f| f.name}
   end
 
   def index
@@ -9,6 +10,7 @@ class CollectionsController < ApplicationController
   end
 
   def filter
+    @tags = ActsAsTaggableOn::Tag.for_context("categories").map {|f| f.name}
     @collection = Collection.find(params[:id])
     complexity = params[:complexity]
     players = params[:players]
