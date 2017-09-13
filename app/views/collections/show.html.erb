@@ -3,9 +3,10 @@
   Players: <%= select_tag(:players, options_for_select(1..15), include_blank: true ) %></br>
   Complexity: <%= select_tag(:complexity, options_for_select(1..5), include_blank: true ) %></br>
   Show me: <%= select_tag(:quantity, options_for_select(1..5), include_blank: true ) %> game(s)</br>
+  <strong>Categories: </strong></br>
   <% @tags.each do |tag| %>
-    <%= tag %>: <%= check_box_tag tag, value = "1", checked = true %></br>
-  <% end %>
+   <%= tag %> <input type="checkbox" name="tags[<%=tag%>]" checked= true/>
+  <% end %></br>
   <%= submit_tag "Search" %></br>
 <% end %>
 <%= link_to "Add Game", new_collection_game_path(@collection.id) %>

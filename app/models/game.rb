@@ -40,4 +40,8 @@ class Game < ApplicationRecord
       Game.all
     end
   end
+  
+  def self.tagged(tags)
+    Game.tagged_with(tags)
+  end
 end
