@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
   belongs_to :collection
   acts_as_taggable
-  acts_as_taggable_on :tags
+  acts_as_taggable_on :categories, :mechanics
   def self.enough_players(players)
     unless players.blank?
       players = players.to_i
@@ -33,7 +33,6 @@ class Game < ApplicationRecord
   def self.complexity(complexity)
     unless complexity.blank?
       complexity = complexity.to_i
-      tolerence = 1
       min_complexity = complexity - 1
       max_complexity = complexity + 1
       Game.where(complexity: min_complexity..max_complexity)

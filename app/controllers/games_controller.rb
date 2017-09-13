@@ -7,9 +7,14 @@ class GamesController < ApplicationController
     search = Search.new(params[:game][:name])
     game_id = search.game_id
     
-    game = BoardGameGeek.new(game_id)
+    game_geek = BoardGameGeek.new(game_id)
+    game_geek.transform
     @collection = Collection.find(params[:collection_id])
-    @game = @collection.games.build(game.transform)
+    
+    @game = @collection.games.build(game_geek.games_hash)
+    @game.geek_link = search.link
+    @game.mechanic_list.add(game_geek.mechanics)
+    @game.category_list.add(game_geek.categories)
     if @game.save
       flash[:notice] = "#{@game.name} added to your collection"
       redirect_to @collection
@@ -25,8 +30,4 @@ class GamesController < ApplicationController
     @game = @collection.games.build
   end
   
-  private
-  def games_params
-    params.require(:game).permit(:name)
-  end
 end

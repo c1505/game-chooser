@@ -1,7 +1,8 @@
 class BoardGameGeek
+  attr_reader :categories, :mechanics, :games_hash
   def initialize(id)
     @id = id
-    @url = "https://www.boardgamegeek.com/xmlapi/boardgame/#{@id}?&stats=1"
+    @api_url = "https://www.boardgamegeek.com/xmlapi/boardgame/#{@id}?&stats=1"
   end
 
   def transform
@@ -17,14 +18,21 @@ class BoardGameGeek
     time = response["playingtime"]
     complexity = response["statistics"]["ratings"]["averageweight"]
     rating = response["statistics"]["ratings"]["average"]
-    {min_players: min_players, max_players: max_players, time: time,
-      complexity: complexity, rating: rating, name: name}
+    image_link = response["thumbnail"]
+    categories = response["boardgamesubdomain"].map {|f| f["__content__"]}
+    mechanics = response["boardgamemechanic"].map {|f| f["__content__"]}
+    
+    @categories = categories
+    @mechanics = mechanics
+    
+    @games_hash = {name: name, min_players: min_players, max_players: max_players, time: time,
+      complexity: complexity, rating: rating, image_link: image_link, geek_id: @id,
+    }
   end
 
   private
   def fetch
-    HTTParty.get(@url)["boardgames"]["boardgame"]
+    HTTParty.get(@api_url)["boardgames"]["boardgame"]
   end
 
 end
-# example_id = 2536
