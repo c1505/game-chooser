@@ -19,8 +19,19 @@ class BoardGameGeek
     complexity = response["statistics"]["ratings"]["averageweight"]
     rating = response["statistics"]["ratings"]["average"]
     image_link = response["thumbnail"]
-    categories = response["boardgamesubdomain"].map {|f| f["__content__"]}
-    mechanics = response["boardgamemechanic"].map {|f| f["__content__"]}
+    
+    categories = response["boardgamesubdomain"]
+    if categories.class == Hash
+      categories = categories["__content__"]
+    elsif categories.class == Array
+      categories = categories.map {|f| f["__content__"]}
+    end
+    mechanics = response["boardgamemechanic"]
+    if mechanics.class == Hash
+      mechanics = mechanics["__content__"]
+    elsif mechanics.class == Array
+      mechanics = mechanics.map {|f| f["__content__"]}
+    end
     
     @categories = categories
     @mechanics = mechanics
