@@ -42,6 +42,6 @@ class Game < ApplicationRecord
   end
   
   def self.tagged(tags)
-    Game.tagged_with(tags)
+    Game.tagged_with(tags, :any => true)
   end
 end
