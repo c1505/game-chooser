@@ -11,8 +11,11 @@ class Search
   end
 
   def game_id
-    link[/\d+/]
+    if link.include?("boardgame")
+      link[/\d+/]
+    end
     # FIXME validate that this is a digit
+    # FIXME should this be an error message that tells me that no game was found
   end
 
   private
