@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  http_basic_authenticate_with name: "test", password: "nope", only: [:create, :new]
   def index
     @games = Game.all
   end
