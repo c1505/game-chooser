@@ -17,7 +17,8 @@ class Search
 
   private
   def fetch
-    HTTParty.get(@url)
+    encoded_url = URI.encode(@url)
+    HTTParty.get(encoded_url)
   end
 
 end

@@ -22,4 +22,6 @@ feature 'game' do
       image_link: be_truthy
     )
   end
+  scenario 'multiple category and mechanic responses'
+  scenario 'single category and mechanic responses'
 end
