@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
-    @games = @collection.games
+    @games = @collection.games.order(rating: :desc)
     @tags = ActsAsTaggableOn::Tag.for_context("categories").map {|f| f.name}
   end
 
@@ -22,6 +22,7 @@ class CollectionsController < ApplicationController
             .enough_time(minutes)
             .complexity(complexity)
             .tagged(submitted_tags)
+            .order(rating: :desc)
     unless quantity.blank?
       quantity = quantity.to_i
       @games = @games.sample(quantity)
