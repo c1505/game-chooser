@@ -11,7 +11,7 @@ class Search
   end
 
   def game_id
-    if link.include?("boardgame")
+    if link.include?("boardgamegeek.com/boardgame")
       link[/\d+/]
     end
     # FIXME validate that this is a digit
