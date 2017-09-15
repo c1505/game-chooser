@@ -5,12 +5,17 @@ class GamesController < ApplicationController
   end
 
   def create
+    @collection = Collection.find(params[:collection_id])
+    
     search = Search.new(params[:game][:name])
     game_id = search.game_id
+    if game_id.nil?
+      flash[:alert] = "The Game could not be found.  Please add it manually"
+      redirect_to @collection and return
+    end
     
     game_geek = BoardGameGeek.new(game_id)
     game_geek.transform
-    @collection = Collection.find(params[:collection_id])
     
     @game = @collection.games.build(game_geek.games_hash)
     @game.geek_link = search.link

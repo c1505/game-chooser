@@ -7,7 +7,12 @@ class Search
   end
   
   def link
-    fetch.parsed_response["items"].first["link"]
+    results = fetch.parsed_response["items"]
+    if results
+      results.first["link"]
+    else
+      ""
+    end
   end
 
   def game_id
