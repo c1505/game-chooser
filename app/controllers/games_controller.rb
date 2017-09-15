@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  http_basic_authenticate_with name: "test", password: "nope", only: [:create, :new]
+  http_basic_authenticate_with name: "test", password: "nope", only: [:create, :new, :destroy]
   def index
     @games = Game.all
   end
@@ -34,6 +34,16 @@ class GamesController < ApplicationController
   def new
     @collection = Collection.find(params[:collection_id])
     @game = @collection.games.build
+  end
+  
+  def destroy
+    @game = Game.find(params[:id]).destroy
+    if @game.destroy
+      flash[:notice] = "#{@game.name} has been deleted"
+    else
+      flash[:alert] = "Error.  Please try again"
+    end
+    redirect_back(fallback_location: root_path)
   end
   
 end

@@ -18,7 +18,8 @@
     Maximum Players: <%=f.max_players %></br>
     Complexity: <%=f.complexity %></br>
     Rating: <%=f.rating %></br>
-    <%= link_to "More Info", f.geek_link %>
+    <%= link_to "More Info", f.geek_link %></br>
+    <%= link_to 'Delete',  f,  method: :delete %>
   </div>
 
 <% end %>
