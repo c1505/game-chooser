@@ -4,8 +4,9 @@
   Complexity: <%= select_tag(:complexity, options_for_select(1..5), include_blank: true ) %></br>
   Show me: <%= select_tag(:quantity, options_for_select(1..5), include_blank: true ) %> game(s)</br>
   <strong>Categories: </strong></br>
+  <input type="checkbox" id="checkAll" checked />Select All/None</br>
   <% @tags.each do |tag| %>
-   <%= tag %> <input type="checkbox" name="tags[<%=tag%>]" checked= true/>
+     <input type="checkbox" name="tags[<%=tag%>]"checked><%= tag %>
   <% end %></br>
   <%= submit_tag "Search" %></br>
 <% end %>
