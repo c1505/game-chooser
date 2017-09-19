@@ -51,6 +51,7 @@ class Game < ApplicationRecord
     sorted = list.sort_by {|f| f.complexity}.reverse
     rank = sorted.find_index(self) + 1
     less_complex_games = list.count - rank
-    (less_complex_games.to_f ) / (list.count - 1) * 100
+    percent_less_complex = (less_complex_games.to_f ) / (list.count - 1) * 100
+    percent_less_complex.round
   end
 end

@@ -18,7 +18,7 @@ RSpec.describe Game, type: :model do
     it "returns the percentile for the second least complex game" do
       seed
       game = Game.find_by(name: "Jenga")
-      expect( game.percentile_complexity(Game.all) ).to eq 11.11111111111111
+      expect( game.percentile_complexity(Game.all) ).to eq 11
     end
 
   end
