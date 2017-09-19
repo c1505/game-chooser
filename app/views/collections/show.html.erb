@@ -1,7 +1,6 @@
 <%= form_tag({controller: "collections", action: "filter"}, method: "post") do %>
   Time: <%= text_field_tag("time") %></br>
   Players: <%= select_tag(:players, options_for_select(1..15), include_blank: true ) %></br>
-  Complexity: <%= select_tag(:complexity, options_for_select(1..5), include_blank: true ) %></br>
   Show me: <%= select_tag(:quantity, options_for_select(1..5), include_blank: true ) %> game(s)</br>
   <strong>Categories: </strong></br>
   <input type="checkbox" id="checkAll" checked />Select All/None</br>
@@ -17,7 +16,7 @@
     Time: <%=f.time %></br>
     Miniumum Players: <%=f.min_players %></br>
     Maximum Players: <%=f.max_players %></br>
-    Complexity: <%=f.complexity %></br>
+    Rating: <%=f.rating %></br>
     <% percentile_complexity = f.percentile_complexity(@collection.games) %>
     <% if percentile_complexity == 0 %>
       Least complex game in the collection</br>
@@ -26,7 +25,6 @@
     <% else %>
       More complex than <%= percentile_complexity %>% of games in the collection</br>
     <% end %>
-    Rating: <%=f.rating %></br>
     <%= link_to "More Info", f.geek_link %></br>
     <%= link_to 'Delete',  f,  method: :delete %>
   </div>
