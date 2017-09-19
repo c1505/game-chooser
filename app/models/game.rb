@@ -44,4 +44,13 @@ class Game < ApplicationRecord
   def self.tagged(tags)
     Game.tagged_with(tags, :any => true)
   end
+  
+
+  def percentile_complexity(list)
+    return unless list.include?(self)
+    sorted = list.sort_by {|f| f.complexity}.reverse
+    rank = sorted.find_index(self) + 1
+    less_complex_games = list.count - rank
+    (less_complex_games.to_f ) / (list.count - 1) * 100
+  end
 end
