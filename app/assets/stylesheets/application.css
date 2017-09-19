@@ -21,3 +21,13 @@
     margin-left: 10px;
     margin-right: 5px;
 }
+
+.notes {
+    font-size: 75%;
+    color: gray;
+    
+}
+
+#legal {
+    margin-top: 15px;
+}
