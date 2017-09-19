@@ -16,7 +16,7 @@
     Time: <%=f.time %></br>
     Miniumum Players: <%=f.min_players %></br>
     Maximum Players: <%=f.max_players %></br>
-    Rating: <%=f.rating %></br>
+    Rating: <%=f.rating.round(1) %></br>
     <% percentile_complexity = f.percentile_complexity(@collection.games) %>
     <% if percentile_complexity == 0 %>
       Least complex game in the collection</br>
