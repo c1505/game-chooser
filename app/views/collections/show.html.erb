@@ -1,20 +1,20 @@
 <div class="panel panel-default">
   <div class="panel-body">
-  <%= form_tag({controller: "collections", action: "filter"}, method: "post") do %>
+  <%= form_tag({controller: "collections", action: "show"}, method: "get") do %>
   <div class="form-group">
-    Time: <%= text_field_tag("time") %></br>
+    Time: <%= text_field_tag("games[time]") %></br>
   </div>
   <div class="form-group">
-    Players: <%= select_tag(:players, options_for_select(1..15), include_blank: true ) %></br>
+    Players: <%= select_tag("games[players]", options_for_select(1..15), include_blank: true ) %></br>
   </div>
   <div class="form-group">
-    Show me: <%= select_tag(:quantity, options_for_select(1..5), include_blank: true ) %> game(s)</br>
+    Show me: <%= select_tag("games[quantity]", options_for_select(1..5), include_blank: true ) %> game(s)</br>
   </div>
   <div class="form-group">
     <strong>Categories: </strong></br>
     <input type="checkbox" id="checkAll" checked />Select All/None</br>
     <% @tags.each do |tag| %>
-     <input type="checkbox" name="tags[<%=tag%>]"checked><%= tag %>
+     <input type="checkbox" name="games[tags[<%=tag%>]]"checked><%= tag %>
     <% end %></br>
   </div>
   <div class="form-group">
