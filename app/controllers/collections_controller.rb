@@ -1,5 +1,6 @@
 class CollectionsController < ApplicationController
   def show
+    @games_params = games_params || {players: nil, time: nil, tags: {}, quantity: nil}
     @collection = Collection.find(params[:id])
     @tags = ActsAsTaggableOn::Tag.for_context("categories").map {|f| f.name}
     if params[:games].nil?
