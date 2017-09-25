@@ -94,9 +94,8 @@
 #   rating: 5.6
 #   )
   
-require 'csv'    
 
-csv_text = File.read('first_50_games.csv')
+csv_text = File.read('50-rest_games.csv')
 csv = CSV.parse(csv_text, :headers => false)
 csv = csv.flatten
 csv = csv.map {|row| row.split("\n") }.flatten
@@ -105,16 +104,17 @@ csv.each do |game_name|
   
   search = Search.new(game_name)
   game_id = search.game_id
-  
-  game_geek = BoardGameGeek.new(game_id)
-  game_geek.transform
-  collection = Collection.new(name: "Triange Game Night")
-  collection.save
-  
-  game = collection.games.build(game_geek.games_hash)
-  game.geek_link = search.link
-  game.mechanic_list.add(game_geek.mechanics)
-  game.category_list.add(game_geek.categories)
-  game.save
+  if game_id
+    game_geek = BoardGameGeek.new(game_id)
+    game_geek.transform
+    collection = Collection.find(2) #triangle game night
+    game = collection.games.build(game_geek.games_hash)
+    game.geek_link = search.link
+    game.mechanic_list.add(game_geek.mechanics)
+    game.category_list.add(game_geek.categories)
+    game.save
+  else
+    puts "Game not found"
+  end
 end
 #FIXME this breaks somewhere
