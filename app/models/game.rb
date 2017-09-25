@@ -23,8 +23,7 @@ class Game < ApplicationRecord
   def self.enough_time(minutes)
     unless minutes.blank?
       minutes = minutes.to_i
-      min_time = minutes * 0.7
-      Game.where(time: min_time..minutes)
+      Game.where(time: 0..minutes)
     else
       Game.all
     end
@@ -40,11 +39,11 @@ class Game < ApplicationRecord
       Game.all
     end
   end
-  
+
   def self.tagged(tags)
     Game.tagged_with(tags, :any => true)
   end
-  
+
 
   def percentile_complexity(list)
     return unless list.include?(self)
