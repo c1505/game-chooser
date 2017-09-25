@@ -10,11 +10,11 @@ class CollectionsController < ApplicationController
       players = games_params[:players]
       minutes = games_params[:time]
       quantity = games_params[:quantity]
-      submitted_tags = games_params[:tags].try(:keys)
+      @selected_tags = games_params[:tags].try(:keys)
       @games = @collection.games.enough_players(players)
               .enough_spaces(players)
               .enough_time(minutes)
-              .tagged(submitted_tags)
+              .tagged(@selected_tags)
               .order(rating: :desc)
       unless quantity.blank?
         quantity = quantity.to_i
@@ -26,7 +26,7 @@ class CollectionsController < ApplicationController
   def index
     @collections = Collection.all
   end
-  
+
   private
   def games_params
     params[:games]

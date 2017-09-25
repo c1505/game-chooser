@@ -14,16 +14,19 @@
       <strong>Categories: </strong></br>
       <input type="checkbox" id="checkAll" checked />Select All/None</br>
       <% @tags.each do |tag| %>
-       <input type="checkbox" name="games[tags[<%=tag%>]]"checked><%= tag %>
+       <% if !params[:games] || @selected_tags.try(:include?, tag) %>
+        <input type="checkbox" name="games[tags[<%=tag%>]]"checked><%= tag %>
+       <% else %>
+        <input type="checkbox" name="games[tags[<%=tag%>]]"un-checked><%= tag %>
+       <% end %>
       <% end %></br>
     </div>
       <%= submit_tag "Search", class: "btn btn-primary" %>
       <button type="button" id="clear" class="btn btn-secondary" data-id=<%=@collection.id%>>Clear</button>
     <% end %>
   </div>
-    
-  
 </div>
+
 <% @games.each do |f| %>
   <div class="game">
     <strong><%=f.name %></br></strong>
