@@ -2,49 +2,53 @@
   <div class="panel-body">
     <%= form_tag({controller: "collections", action: "show"}, method: "get") do %>
     <div class="form-row form-group">
-      <div class="col">
+      <div class="col-xs-6 col-sm-4">
         Max Time: <%= text_field_tag("games[time]", @games_params[:time], class: "form-control") %>
       </div>
-      <div class="col">
+      <div class="col-xs-6 col-sm-4">
         Players: <%= select_tag("games[players]", options_for_select(1..15, @games_params[:players]), include_blank: true, class: "form-control") %>
       </div>
     </div>
-    <div class="form-group">
-      Show me: <%= select_tag("games[quantity]", options_for_select(1..5, @games_params[:quantity]), include_blank: true ) %> game(s)</br>
+    <div class="form-row">
+      <div class="form-group col-xs-6 col-sm-4">
+        Show me: <%= select_tag("games[quantity]", options_for_select(1..5, @games_params[:quantity]), include_blank: true ) %> game(s)<br>
+      </div>
+      <div class="form-group col-xs-6 col-sm-4"">
+        <strong>Categories: </strong><br>
+        <input type="checkbox" id="checkAll" checked />Select All/None<br>
+        <% @tags.each do |tag| %>
+         <% if !params[:games] || @selected_tags.try(:include?, tag) %>
+          <input type="checkbox" name="games[tags[<%=tag%>]]"checked><%= tag %>
+         <% else %>
+          <input type="checkbox" name="games[tags[<%=tag%>]]"un-checked><%= tag %>
+         <% end %>
+        <% end %>
+      </div>
     </div>
-    <div class="form-group form-check form-check-inline">
-      <strong>Categories: </strong></br>
-      <input type="checkbox" id="checkAll" checked />Select All/None</br>
-      <% @tags.each do |tag| %>
-       <% if !params[:games] || @selected_tags.try(:include?, tag) %>
-        <input type="checkbox" name="games[tags[<%=tag%>]]"checked><%= tag %>
-       <% else %>
-        <input type="checkbox" name="games[tags[<%=tag%>]]"un-checked><%= tag %>
-       <% end %>
-      <% end %></br>
-    </div>
+    <div class="form-row">
       <%= submit_tag "Search", class: "btn btn-primary" %>
       <button type="button" id="clear" class="btn btn-secondary" data-id=<%=@collection.id%>>Clear</button>
     <% end %>
+    </div>
   </div>
 </div>
 
 <% @games.each do |f| %>
   <div class="game">
-    <strong><%=f.name %></br></strong>
-    Time: <%=f.time %></br>
-    Minimum Players: <%=f.min_players %></br>
-    Maximum Players: <%=f.max_players %></br>
-    Rating: <%=f.rating.round(1) %></br>
+    <strong><%=f.name %><br></strong>
+    Time: <%=f.time %><br>
+    Minimum Players: <%=f.min_players %><br>
+    Maximum Players: <%=f.max_players %><br>
+    Rating: <%=f.rating.round(1) %><br>
     <% percentile_complexity = f.percentile_complexity(@collection.games) %>
     <% if percentile_complexity == 0 %>
-      Least complex game in the collection</br>
+      Least complex game in the collection<br>
     <% elsif percentile_complexity == 100 %>
-      Most complex game in the collection</br>
+      Most complex game in the collection<br>
     <% else %>
-      More complex than <%= percentile_complexity %>% of games in the collection</br>
+      More complex than <%= percentile_complexity %>% of games in the collection<br>
     <% end %>
-    <%= link_to "More Info", f.geek_link %></br>
+    <%= link_to "More Info", f.geek_link %><br>
   </div>
 
 <% end %>
