@@ -2,7 +2,7 @@ class CollectionsController < ApplicationController
   def show
     @games_params = games_params || {players: nil, time: nil, tags: {}, quantity: nil}
     @collection = Collection.find(params[:id])
-    @tags = ActsAsTaggableOn::Tag.for_context("categories").map {|f| f.name}
+    @tags = collection_tags
     if params[:games].nil?
       @games = @collection.games
       return
@@ -30,6 +30,12 @@ class CollectionsController < ApplicationController
   private
   def games_params
     params[:games]
+  end
+
+  def collection_tags
+    @collection.games.map do |game|
+      game.category_list
+    end.flatten.uniq
   end
 
 end
