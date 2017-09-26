@@ -4,7 +4,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
     @tags = collection_tags
     if params[:games].nil?
-      @games = @collection.games
+      @games = @collection.games.order(rating: :desc)
       return
     else
       players = games_params[:players]
