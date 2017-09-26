@@ -1,11 +1,14 @@
 class GamesController < ApplicationController
-  http_basic_authenticate_with name: "test", password: "nope", only: [:create, :new, :destroy]
   def index
     @games = Game.all
   end
 
   def create
     @collection = Collection.find(params[:collection_id])
+    unless current_user == @collection.user
+      flash[:alert] = "Error.  Please sign in and try again"
+      redirect_to root_path and return
+    end
     
     search = Search.new(params[:game][:name])
     game_id = search.game_id
@@ -34,10 +37,19 @@ class GamesController < ApplicationController
   def new
     @collection = Collection.find(params[:collection_id])
     @game = @collection.games.build
+    unless current_user == @collection.user
+      flash[:alert] = "Error.  Please sign in and try again"
+      redirect_to root_path and return
+    end
   end
   
   def destroy
-    @game = Game.find(params[:id]).destroy
+    @game = Game.find(params[:id])
+    @collection = @game.collection
+    unless current_user == @collection.user
+      flash[:alert] = "Error.  Please sign in and try again"
+      redirect_to root_path and return
+    end
     if @game.destroy
       flash[:notice] = "#{@game.name} has been deleted"
     else

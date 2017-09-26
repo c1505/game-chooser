@@ -32,7 +32,9 @@
     </div>
   </div>
 </div>
-
+<% if current_user == @collection.user %>
+  <%= link_to "Add Game", new_collection_game_path(@collection.id) %>
+<% end %>
 <% @games.each do |f| %>
   <div class="game">
     <strong><%=f.name %><br></strong>
@@ -49,6 +51,9 @@
       More complex than <%= percentile_complexity %>% of games in the collection<br>
     <% end %>
     <%= link_to "More Info", f.geek_link %><br>
+    <% if current_user == @collection.user %>
+      <%= link_to 'Delete',  f,  method: :delete %>
+    <% end %>
   </div>
 
 <% end %>
