@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-xs-12 col-sm-8">
+      <div class="form-group col-xs-12 col-sm-8"">
         <strong>Categories: </strong><br>
         <input type="checkbox" id="checkAll" checked />Select All/None<br>
         <% @tags.each do |tag| %>
@@ -27,7 +27,7 @@
     </div>
     <div class="form-row">
       <%= submit_tag "Search", class: "btn btn-primary" %>
-      <button type="reset" class="btn btn-secondary">Clear</button>
+      <button type="button" id="clear" class="btn btn-secondary" data-id=<%=@collection.id%>>Clear</button>
     <% end %>
     </div>
   </div>
