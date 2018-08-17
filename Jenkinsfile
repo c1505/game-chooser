@@ -4,6 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ruby --version'
+                sh 'echo "Hello World"'
             }
         }
     }
